@@ -122,7 +122,7 @@ public class Field extends Canvas {
 	        		{
 	        			joueurs[i].turnRight();	        			
 	        		}
-	        		if (i==1 && input.contains("A"))
+	        		if (i==1 && input.contains("Q"))
 	        		{
 	        			joueurs[i].moveLeft();
 	        		} 
@@ -130,7 +130,7 @@ public class Field extends Canvas {
 	        		{
 	        			joueurs[i].moveRight();	        			
 	        		}
-	        		if (i==1 && input.contains("W"))
+	        		if (i==1 && input.contains("Z"))
 	        		{
 	        			joueurs[i].turnLeft();
 	        		} 
@@ -139,7 +139,10 @@ public class Field extends Canvas {
 	        			joueurs[i].turnRight();	        			
 	        		}
 	        		if (input.contains("SPACE")){
-	        			joueurs[i].shoot();
+	        			joueurs[0].shoot();
+					}
+					if (input.contains("T")){
+						joueurs[1].shoot();
 					}
 
 	        		
