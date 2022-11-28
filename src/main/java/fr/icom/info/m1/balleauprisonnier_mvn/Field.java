@@ -9,7 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
+
+import java.util.Vector;
 
 /**
  * Classe gerant le terrain de jeu.
@@ -18,16 +19,23 @@ import javafx.scene.paint.Color;
 public class Field extends Canvas {
 	
 	/** Joueurs */
-	Player [] joueurs = new Player[2];
-	/** Couleurs possibles */
-	String[] colorMap = new String[] {"blue", "green", "orange", "purple", "yellow"};
+	public enum equipes {UNE, DEUX};
+	private int nbrJoueursEquipe1 = 3;
+	private int nbrJoueursEquipe2 = 3;
+	private Player[] equipe1 = new Player[nbrJoueursEquipe1];
+	private Player[] equipe2 = new Player[nbrJoueursEquipe2];
+
+	// Projectiles
+	private Vector<Projectile> projectiles = new Vector<Projectile>();
+//	/** Couleurs possibles */
+//	String[] colorMap = new String[] {"blue", "green", "orange", "purple", "yellow"};
 	/** Tableau traçant les evenements */
-    ArrayList<String> input = new ArrayList<String>();
+    private ArrayList<String> input = new ArrayList<String>();
     
 
-    final GraphicsContext gc;
-    final int width;
-    final int height;
+    public final GraphicsContext gc;
+    private final int width;
+    private final int height;
     
     /**
      * Canvas dans lequel on va dessiner le jeu.
@@ -47,13 +55,21 @@ public class Field extends Canvas {
 		
         gc = this.getGraphicsContext2D();
         
-        /** On initialise le terrain de jeu */
-    	joueurs[0] = new Player(gc, colorMap[0], w/2, h-50, "bottom");
-    	joueurs[0].display();
-
-    	joueurs[1] = new Player(gc, colorMap[1], w/2, 20, "top");
-    	joueurs[1].display();
-
+        /** On initialise le terrain de jeu avec la méthode de design patter Factory */
+        PlayerFactoryIF factory = new PlayerFactory();
+        equipe1[0] = factory.createPlayer(gc, Player.typeJoueur.BLUE,     w/4-26,   h-140, Player.orientation.BAS,     width, 0.5);
+		equipe1[1] = factory.createPlayer(gc, Player.typeJoueur.SKELETON, w/2-32,   h-140, Player.orientation.BAS,     width, 0.5);
+		equipe2[0] = factory.createPlayer(gc, Player.typeJoueur.RED,      w/4-26,   20, Player.orientation.HAUT, width, 1);
+		equipe2[1] = factory.createPlayer(gc, Player.typeJoueur.ORC,      w/2-32,   20, Player.orientation.HAUT, width, 1);
+		equipe2[2] = factory.createPlayer(gc, Player.typeJoueur.ORC,      3*w/4-35, 20, Player.orientation.HAUT, width, 1);
+		/*
+		equipe1[0] = new HumanPlayer(gc, Player.typeJoueur.BLUE,     w/4-26,   h-140, Player.orientation.BAS,     width, 0.5);
+		equipe1[1] = new IAPlayer(gc, Player.typeJoueur.SKELETON, w/2-32,   h-140, Player.orientation.BAS,     width, 0.5);
+		equipe1[2] = new IAPlayer(gc, Player.typeJoueur.SKELETON, 3*w/4-35, h-140, Player.orientation.BAS,     width, 0.5);
+		equipe2[0] = new HumanPlayer(gc, Player.typeJoueur.RED,      w/4-26,   20, Player.orientation.HAUT, width, 1);
+		equipe2[1] = new IAPlayer(gc, Player.typeJoueur.ORC,      w/2-32,   20, Player.orientation.HAUT, width, 1);
+		equipe2[2] = new IAPlayer(gc, Player.typeJoueur.ORC,      3*w/4-35, 20, Player.orientation.HAUT, width, 1);
+		*/
 
 	    /** 
 	     * Event Listener du clavier 
@@ -98,62 +114,57 @@ public class Field extends Canvas {
 	    new AnimationTimer() 
 	    {
 	        public void handle(long currentNanoTime)
-	        {	 
-	            // On nettoie le canvas a chaque frame
-	            gc.setFill( Color.LIGHTGRAY);
-	            gc.fillRect(0, 0, width, height);
-	        	
-	            // Deplacement et affichage des joueurs
-	        	for (int i = 0; i < joueurs.length; i++) 
-	    	    {
-	        		if (i==0 && input.contains("LEFT"))
-	        		{
-	        			joueurs[i].moveLeft();
-	        		} 
-	        		if (i==0 && input.contains("RIGHT")) 
-	        		{
-	        			joueurs[i].moveRight();	        			
-	        		}
-	        		if (i==0 && input.contains("UP"))
-	        		{
-	        			joueurs[i].turnLeft();
-	        		} 
-	        		if (i==0 && input.contains("DOWN")) 
-	        		{
-	        			joueurs[i].turnRight();	        			
-	        		}
-	        		if (i==1 && input.contains("Q"))
-	        		{
-	        			joueurs[i].moveLeft();
-	        		} 
-	        		if (i==1 && input.contains("D")) 
-	        		{
-	        			joueurs[i].moveRight();	        			
-	        		}
-	        		if (i==1 && input.contains("Z"))
-	        		{
-	        			joueurs[i].turnLeft();
-	        		} 
-	        		if (i==1 && input.contains("S")) 
-	        		{
-	        			joueurs[i].turnRight();	        			
-	        		}
-	        		if (input.contains("SPACE")){
-	        			joueurs[0].shoot();
+	        {
+				// On nettoie le canvas à chaque frame
+				gc.clearRect(0, 0, getWidth(), getHeight());
+				for(int i=0; i<nbrJoueursEquipe1; i++){
+					if(equipe1[i].controlleur(input, Field.equipes.UNE)){
+						addProjectile(equipe1[i]);
 					}
-					if (input.contains("T")){
-						joueurs[1].shoot();
+				}
+				for(int i=0; i<nbrJoueursEquipe2; i++){
+					if(equipe2[i].controlleur(input, Field.equipes.DEUX)){
+						addProjectile(equipe2[i]);
 					}
-
-	        		
-	        		joueurs[i].display();
-	    	    }
-	    	}
+				}
+				for(int i=0; i<projectiles.size(); i++){
+					projectiles.get(i).controlleur();
+				}
+			}
 	     }.start(); // On lance la boucle de rafraichissement 
 	     
 	}
 
+	/**
+	 * @return Tableau des joueurs des 2 équipes.
+	 */
 	public Player[] getJoueurs() {
-		return joueurs;
+		Player[] retour = new Player[nbrJoueursEquipe1+nbrJoueursEquipe2];
+		System.arraycopy(equipe1, 0, retour, 0, nbrJoueursEquipe1);
+		System.arraycopy(equipe2, 0, retour, nbrJoueursEquipe1, nbrJoueursEquipe2);
+		return retour;
 	}
+	/**
+	 * @return le nombre de joueurs
+	 */
+	 public int getNbrJoueurs(){
+		return nbrJoueursEquipe1+nbrJoueursEquipe2;
+		}
+	 /**
+	 * Ajoute un nouveau projectile.
+	  * @param joueur
+	**/
+	 public void addProjectile(Player joueur){
+		double angle = joueur.getAngle();
+			switch(joueur.getOrientation()){
+				case HAUT:
+					angle+=90;
+					break;
+				case BAS:
+					angle-=90;
+					break;
+			}
+			//projectiles.add(new Projectile(gc, joueur.getX()+10, joueur.getY()+10, angle));
+			projectiles.add(Projectile.getInstance(gc, joueur.getX()+10, joueur.getY()+10, angle));
+		}
 }

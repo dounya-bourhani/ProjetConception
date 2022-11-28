@@ -1,5 +1,5 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
-
+import fr.icom.info.m1.balleauprisonnier_mvn.Player.orientation;
 import javafx.animation.*;
 import javafx.beans.property.*;
 import javafx.geometry.*;
@@ -9,7 +9,7 @@ import javafx.util.Duration;
 class Sprite extends ImageView {
     private final Rectangle2D[] walkClips;
     private final Rectangle2D[] shootClips;
-    private int numCells;
+    //private int numCells;
     private int numCellsWalk;
     private int numCellsShoot;
     private final Timeline walkTimeline;
@@ -17,26 +17,24 @@ class Sprite extends ImageView {
     private final Timeline shootTimeline;
     private Timeline timeline;
     public boolean isRunning;
+    private int hauteurCellule = 64;
+    private int largeurCellule = 64;
 
-    public Sprite(Image animationImage, int numCells, int numRows, Duration frameTime, String side) {
-        this.numCells = numCells;
-
-        double cellWidth  = 64;//animationImage.getWidth() / numCells; //64x64
-        double cellHeight = 64;//animationImage.getHeight() / numRows;
-
-
+    public Sprite(Image animationImage, int numCells, int numRows, Duration frameTime, Player.orientation orientationInitiale) {
+        //this.numCells = numCells;
         numCellsWalk = 9;
 
+
         int lineNumber = 8;
-        if(side == "top"){
+        if(orientationInitiale == Player.orientation.HAUT){
             lineNumber += 2;
         }
 
         walkClips = new Rectangle2D[numCellsWalk];
         for (int i = 0; i < numCellsWalk; i++) {
             walkClips[i] = new Rectangle2D(
-                    i * cellWidth, cellHeight*lineNumber,
-                    cellWidth, cellHeight
+                    i * largeurCellule, hauteurCellule*lineNumber,
+                    largeurCellule, hauteurCellule
             );
         }
 
@@ -56,8 +54,8 @@ class Sprite extends ImageView {
         shootClips = new Rectangle2D[numCellsShoot];
         for (int i = 0; i < numCellsShoot; i++){
             shootClips[i] = new Rectangle2D(
-                    i * cellWidth, cellHeight*lineNumber,
-                    cellWidth, cellHeight
+                    i * largeurCellule, hauteurCellule*lineNumber,
+                    largeurCellule, hauteurCellule
             );
         }
 
@@ -93,5 +91,8 @@ class Sprite extends ImageView {
         frameCounter.set(0);
         setViewport(walkClips[frameCounter.get()]);
         walkTimeline.stop();
+    }
+    public double getHauteurCellule(){
+        return hauteurCellule;
     }
 }
