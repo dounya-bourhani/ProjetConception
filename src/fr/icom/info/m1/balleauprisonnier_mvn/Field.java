@@ -16,7 +16,7 @@ import java.util.Vector;
  * Classe gerant le terrain de jeu.
  * 
  */
-public class Field extends Canvas {
+public final class Field extends Canvas {
 	
 	/** Joueurs */
 	public enum equipes {UNE, DEUX};
@@ -32,6 +32,7 @@ public class Field extends Canvas {
 	/** Tableau traçant les evenements */
     private ArrayList<String> input = new ArrayList<String>();
     
+	private static Field instance = null;
 
     public final GraphicsContext gc;
     private final int width;
@@ -157,17 +158,24 @@ public class Field extends Canvas {
 	 * Ajoute un nouveau projectile.
 	  * @param joueur
 	**/
-	 public void addProjectile(Player joueur){
-		double angle = joueur.getAngle();
-			switch(joueur.getOrientation()){
-				case HAUT:
-					angle+=90;
-					break;
-				case BAS:
-					angle-=90;
-					break;
-			}
-			projectiles.add(new Projectile(gc, joueur.getX()+10, joueur.getY()+10, angle));
-			//projectiles.add(Projectile.getInstance(gc, joueur.getX()+10, joueur.getY()+10, angle));
+	 public void addProjectile(Player joueur) {
+		 double angle = joueur.getAngle();
+		 switch (joueur.getOrientation()) {
+			 case HAUT:
+				 angle += 90;
+				 break;
+			 case BAS:
+				 angle -= 90;
+				 break;
+		 }
+		 projectiles.add(new Projectile(gc, joueur.getX() + 10, joueur.getY() + 10, angle));
+		 //projectiles.add(Projectile.getInstance(gc, joueur.getX()+10, joueur.getY()+10, angle));
+	 }
+
+	public static Field getInstance(Scene scene, int w, int h) {
+		if (instance == null) {
+			instance = new Field(scene, w, h);
 		}
+		return instance;
+	}
 }
