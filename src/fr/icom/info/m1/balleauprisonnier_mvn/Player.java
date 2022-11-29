@@ -74,8 +74,7 @@ public class Player
 				break;
 		  	case BAS:
 				directionArrow = new Image("resources/assets/PlayerArrowUp.png");
-		  		//directionArrow = new Image("C:\\Users\\bourh\\Cours\\CoursM1\\Conception_Agile_de_Projet\\Projet\\Projet\\ProjetConception\\src\\main\\resources\\assets\\PlayerArrowUp.png");
-				break;
+		  		break;
 	  }
         PlayerDirectionArrow = new ImageView();
         PlayerDirectionArrow.setImage(directionArrow);
@@ -147,30 +146,23 @@ public class Player
 
 	  
 	  /**
-	   *  Deplacement du joueur vers la gauche, on cantonne le joueur sur le plateau de jeu
+	   *  Deplacement du joueur vers la gauche
 	   */
-	 
-	  private void moveLeft()
-	  {	    
-	    if (x > 10 && x < 520) 
-	    {
-			spriteAnimate();
-		    x -= step;
-	    }
+
+	  private void moveLeft(){
+		  if(x > 10){
+			  spriteAnimate();
+			  x -= step;
+		  }
 	  }
 
-	  /**
-	   *  Deplacement du joueur vers la droite
-	   */
-	  private void moveRight()
-	  {
-	    if (x > 10 && x < 520) 
-	    {
+	// Déplacement du joueur vers la droite
+	private void moveRight(){
+		if(x < largeurTerrain-70){
 			spriteAnimate();
-		    x += step;
-	    }
-	  }
-
+			x += step;
+		}
+	}
 	  
 	  /**
 	   *  Rotation du joueur vers la gauche
@@ -193,7 +185,7 @@ public class Player
 	   */
 	  void turnRight() 
 	  {
-	    if (angle > 0 && angle < 180) 
+	    if (angle > 0 && angle < 180)
 	    {
 	    	angle -=1;
 	    }

@@ -59,9 +59,9 @@ public final class Field extends Canvas {
         /* On initialise le terrain de jeu avec la méthode de design patter Factory */
 
         PlayerFactoryIF factory = new PlayerFactory();
-        equipe1[0] = factory.createPlayer(gc, Player.typeJoueur.BLUE,     w/4-26,   h-140, Player.orientation.BAS,     width, 0.5);
-		equipe1[1] = factory.createPlayer(gc, Player.typeJoueur.SKELETON, w/2-32,   h-140, Player.orientation.BAS,     width, 0.5);
-		equipe1[2] = factory.createPlayer(gc, Player.typeJoueur.SKELETON, 3*w/4-35, h-140, Player.orientation.BAS,     width, 0.5);
+        equipe1[0] = factory.createPlayer(gc, Player.typeJoueur.BLUE,     w/4-26,   h-140, Player.orientation.BAS,     width, 1);
+		equipe1[1] = factory.createPlayer(gc, Player.typeJoueur.SKELETON, w/2-32,   h-140, Player.orientation.BAS,     width, 1);
+		equipe1[2] = factory.createPlayer(gc, Player.typeJoueur.SKELETON, 3*w/4-35, h-140, Player.orientation.BAS,     width, 1);
 		equipe2[0] = factory.createPlayer(gc, Player.typeJoueur.RED,      w/4-26,   20, Player.orientation.HAUT, width, 1);
 		equipe2[1] = factory.createPlayer(gc, Player.typeJoueur.ORC,      w/2-32,   20, Player.orientation.HAUT, width, 1);
 		equipe2[2] = factory.createPlayer(gc, Player.typeJoueur.ORC,      3*w/4-35, 20, Player.orientation.HAUT, width, 1);
