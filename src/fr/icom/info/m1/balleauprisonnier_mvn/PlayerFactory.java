@@ -15,6 +15,7 @@ public class PlayerFactory implements PlayerFactoryIF {
             case ORC:
             case SKELETON:
                 player = new IAPlayer(gc, type, xInit, yInit, orientationInitiale, largeurPlateau, vitesse);
+                break;
             default:
                 throw new RuntimeException("Type " + type + " pas reconnu");
         }

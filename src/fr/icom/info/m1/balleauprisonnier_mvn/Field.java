@@ -55,22 +55,25 @@ public class Field extends Canvas {
 		
         gc = this.getGraphicsContext2D();
         
-        /** On initialise le terrain de jeu avec la méthode de design patter Factory */
+        /* On initialise le terrain de jeu avec la méthode de design patter Factory */
+
         PlayerFactoryIF factory = new PlayerFactory();
         equipe1[0] = factory.createPlayer(gc, Player.typeJoueur.BLUE,     w/4-26,   h-140, Player.orientation.BAS,     width, 0.5);
 		equipe1[1] = factory.createPlayer(gc, Player.typeJoueur.SKELETON, w/2-32,   h-140, Player.orientation.BAS,     width, 0.5);
+		equipe1[2] = factory.createPlayer(gc, Player.typeJoueur.SKELETON, 3*w/4-35, h-140, Player.orientation.BAS,     width, 0.5);
 		equipe2[0] = factory.createPlayer(gc, Player.typeJoueur.RED,      w/4-26,   20, Player.orientation.HAUT, width, 1);
 		equipe2[1] = factory.createPlayer(gc, Player.typeJoueur.ORC,      w/2-32,   20, Player.orientation.HAUT, width, 1);
 		equipe2[2] = factory.createPlayer(gc, Player.typeJoueur.ORC,      3*w/4-35, 20, Player.orientation.HAUT, width, 1);
-		/*
+/*
+
 		equipe1[0] = new HumanPlayer(gc, Player.typeJoueur.BLUE,     w/4-26,   h-140, Player.orientation.BAS,     width, 0.5);
 		equipe1[1] = new IAPlayer(gc, Player.typeJoueur.SKELETON, w/2-32,   h-140, Player.orientation.BAS,     width, 0.5);
 		equipe1[2] = new IAPlayer(gc, Player.typeJoueur.SKELETON, 3*w/4-35, h-140, Player.orientation.BAS,     width, 0.5);
 		equipe2[0] = new HumanPlayer(gc, Player.typeJoueur.RED,      w/4-26,   20, Player.orientation.HAUT, width, 1);
 		equipe2[1] = new IAPlayer(gc, Player.typeJoueur.ORC,      w/2-32,   20, Player.orientation.HAUT, width, 1);
 		equipe2[2] = new IAPlayer(gc, Player.typeJoueur.ORC,      3*w/4-35, 20, Player.orientation.HAUT, width, 1);
-		*/
 
+*/
 	    /** 
 	     * Event Listener du clavier 
 	     * quand une touche est pressee on la rajoute a la liste d'input
@@ -164,7 +167,7 @@ public class Field extends Canvas {
 					angle-=90;
 					break;
 			}
-			//projectiles.add(new Projectile(gc, joueur.getX()+10, joueur.getY()+10, angle));
-			projectiles.add(Projectile.getInstance(gc, joueur.getX()+10, joueur.getY()+10, angle));
+			projectiles.add(new Projectile(gc, joueur.getX()+10, joueur.getY()+10, angle));
+			//projectiles.add(Projectile.getInstance(gc, joueur.getX()+10, joueur.getY()+10, angle));
 		}
 }

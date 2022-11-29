@@ -70,10 +70,11 @@ public class Player
 	    // On charge la representation du joueur
 	  	switch(orientationActuelle){
 			case HAUT:
-				directionArrow = new Image("assets/PlayerArrowDown.png");
+				directionArrow = new Image("resources/assets/PlayerArrowDown.png");
 				break;
 		  	case BAS:
-				directionArrow = new Image("assets/PlayerArrowUp.png");
+				directionArrow = new Image("resources/assets/PlayerArrowUp.png");
+		  		//directionArrow = new Image("C:\\Users\\bourh\\Cours\\CoursM1\\Conception_Agile_de_Projet\\Projet\\Projet\\ProjetConception\\src\\main\\resources\\assets\\PlayerArrowUp.png");
 				break;
 	  }
         PlayerDirectionArrow = new ImageView();
@@ -85,19 +86,19 @@ public class Player
 
 	  	switch(typeDeJoueur){
 			  case BLUE :
-			  	tilesheetImage = new Image("assets/PlayerBlue.png");
+			  	tilesheetImage = new Image("resources/assets/PlayerBlue.png");
 				  break;
 			  case RED :
-			  	tilesheetImage = new Image("assets/PlayerRed.png");
+			  	tilesheetImage = new Image("resources/assets/PlayerRed.png");
 			  	break;
 			  case SKELETON :
-			  	tilesheetImage = new Image("assets/skeleton.png");
+			  	tilesheetImage = new Image("resources/assets/skeleton.png");
 			  	break;
 			  case ORC :
-			  	tilesheetImage = new Image("assets/orc.png");
+			  	tilesheetImage = new Image("resources/assets/orc.png");
 			  	break;
 			  default:
-			  	tilesheetImage = new Image("assets/orc.png");
+			  	tilesheetImage = new Image("resources/assets/orc.png");
 			  	break;
 	  }
 
