@@ -33,5 +33,22 @@ public class Projectile{
 	private void vue(){
 		gc.drawImage(representation, x, y);
 	}
+	/**
+	 * @return l'abscisse du joueur.
+	 */
+	public double getX(){
+		return x;
+	}
+
+	/**
+	 * @return l'ordonée du joueur.
+	 */
+	public double getY(){
+		return y;
+	}
+
+
+
+
 }
 //isparent bounding si les deux rectangle se touche alors tuer
