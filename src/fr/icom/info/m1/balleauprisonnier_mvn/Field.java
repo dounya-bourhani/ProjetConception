@@ -45,7 +45,7 @@ public final class Field extends Canvas {
      * @param w largeur du canvas
      * @param h hauteur du canvas
      */
-	public Field(Scene scene, int w, int h) 
+	private Field(Scene scene, int w, int h)
 	{
 		super(w, h); 
 		width = w;
@@ -169,7 +169,6 @@ public final class Field extends Canvas {
 				 break;
 		 }
 		 projectiles.add(new Projectile(gc, joueur.getX() + 10, joueur.getY() + 10, angle));
-		 //projectiles.add(Projectile.getInstance(gc, joueur.getX()+10, joueur.getY()+10, angle));
 	 }
 
 	public static Field getInstance(Scene scene, int w, int h) {

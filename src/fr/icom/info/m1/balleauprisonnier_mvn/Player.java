@@ -191,7 +191,7 @@ public class Player
 	  /**
 	   *  Rotation du joueur vers la droite
 	   */
-	  void turnRight() 
+	  private void turnRight()
 	  {
 	    if (angle > 0 && angle < 180) 
 	    {
@@ -203,7 +203,7 @@ public class Player
 	  }
 
 
-	  void shoot(){
+	  private void shoot(){
 	  	sprite.playShoot();
 	  }
 	  
@@ -222,6 +222,7 @@ public class Player
 		  sprite.setX(x);
 		  sprite.setY(y);
 	  }
+
 	  public boolean controlleur(ArrayList<String> input, Field.equipes equipe){
 	  	boolean shoot = false;
 		switch(equipe){

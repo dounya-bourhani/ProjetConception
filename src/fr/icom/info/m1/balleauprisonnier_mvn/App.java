@@ -33,7 +33,7 @@ public class App extends Application
 
         // On cree le terrain de jeu et on l'ajoute a la racine de la scene
         //Field gameField = new Field(scene, 600, 600 );
-        Field gameField = Field.getInstance(scene, 300, 600);
+        Field gameField = Field.getInstance(scene, 600, 600);
 		root.getChildren().add( gameField );
 
 		for(int i=0; i<gameField.getNbrJoueurs(); i++){
