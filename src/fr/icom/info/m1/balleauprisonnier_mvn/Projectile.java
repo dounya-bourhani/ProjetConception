@@ -33,6 +33,7 @@ public class Projectile{
 	private void vue(){
 		gc.drawImage(representation, x, y);
 	}
+
 	/**
 	 * @return l'abscisse du joueur.
 	 */
@@ -46,8 +47,6 @@ public class Projectile{
 	public double getY(){
 		return y;
 	}
-
-
 
 
 }

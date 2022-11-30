@@ -92,6 +92,7 @@ class Sprite extends ImageView {
         setViewport(walkClips[frameCounter.get()]);
         walkTimeline.stop();
     }
+
     public double getHauteurCellule(){
         return hauteurCellule;
     }

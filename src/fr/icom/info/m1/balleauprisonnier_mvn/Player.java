@@ -113,11 +113,6 @@ public class Player
 
 	  }
 
-	  /*
-	  public Player(GraphicsContext gc, typeJoueur type, int xInit, int yInit, orientation orientationInitiale, int largeurPlateau){
-	  	this(gc, type, xInit, yInit, orientationInitiale, largeurPlateau, Math.random()*(1.0-0.0));
-	  }
-	  */
 
 	  //  Affichage de la flèche
 	  private void affichageFleche(){
@@ -132,17 +127,6 @@ public class Player
 		Rotate r = new Rotate(angle, px, py);
 		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy()-sprite.getHauteurCellule()/2.0);
 		}
-
-	  /**
-	   *  Affichage du joueur
-	   */
-//	  void display()
-//	  {
-//		  graphicsContext.save(); // saves the current state on stack, including the current transform
-//	      rotate(graphicsContext, angle, x + directionArrow.getWidth() / 2, y + directionArrow.getHeight() / 2);
-//		  graphicsContext.drawImage(directionArrow, x, y);
-//		  graphicsContext.restore(); // back to original state (before rotation)
-//	  }
 
 	  
 	  /**
@@ -202,11 +186,11 @@ public class Player
 	  /**
 	   *  Deplacement en mode boost
 	   */
-//	  void boost()
-//	  {
-//	    x += step*2;
-//		  spriteAnimate();
-//	  }
+		//	  void boost()
+		//	  {
+		//	    x += step*2;
+		//		  spriteAnimate();
+		//	  }
 
 	  void spriteAnimate(){
 	  	  //System.out.println("Animating sprite");
